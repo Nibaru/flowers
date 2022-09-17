@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "flowers",
+  "version": "${version}",
+  "name": "Flowers",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/flowers/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "games.twinhead.flowers.client.FlowersClient"
+    ],
+    "main": [
+      "games.twinhead.flowers.Flowers"
+    ]
+  },
+  "mixins": [
+    "flowers.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.9",
+    "fabric": "*",
+    "minecraft": "1.19.2"
+  }
+}

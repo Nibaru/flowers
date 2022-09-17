@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "flowers:allium",
+    "flowers:azure_bluet",
+    "flowers:blue_orchid",
+    "flowers:dandelion",
+    "flowers:poppy",
+    "flowers:red_tulip",
+    "flowers:orange_tulip",
+    "flowers:white_tulip",
+    "flowers:pink_tulip",
+    "flowers:oxeye_daisy",
+    "flowers:cornflower",
+    "flowers:lily_of_the_valley",
+    "flowers:wither_rose"
+  ]
+}

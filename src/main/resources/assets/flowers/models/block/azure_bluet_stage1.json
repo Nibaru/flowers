@@ -1,0 +1,6 @@
+{
+  "parent": "flowers:block/flower_crop",
+  "textures": {
+    "flower": "flowers:block/azure_bluet_1"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "flowers:item/seed_pouch",
+  "textures": {
+    "flower": "block/poppy"
+  }
+}
