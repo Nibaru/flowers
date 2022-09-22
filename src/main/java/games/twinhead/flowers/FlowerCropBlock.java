@@ -50,19 +50,19 @@ public class FlowerCropBlock extends CropBlock {
 
     protected ItemConvertible getSeedsItem() {
         return switch (flower){
-            case "allium" -> BlockRegistry.ALLIUM_SEEDS;
-            case "azure_bluet" -> BlockRegistry.AZURE_BLUET_SEEDS;
-            case "blue_orchid" -> BlockRegistry.BLUE_ORCHID_SEEDS;
-            case "dandelion" -> BlockRegistry.DANDELION_SEEDS;
-            case "poppy" -> BlockRegistry.POPPY_SEEDS;
-            case "red_tulip" -> BlockRegistry.RED_TULIP_SEEDS;
-            case "orange_tulip" -> BlockRegistry.ORANGE_TULIP_SEEDS;
-            case "white_tulip" -> BlockRegistry.WHITE_TULIP_SEEDS;
-            case "pink_tulip" -> BlockRegistry.PINK_TULIP_SEEDS;
-            case "oxeye_daisy" -> BlockRegistry.OXEYE_DAISY_SEEDS;
-            case "cornflower" -> BlockRegistry.CORNFLOWER_SEEDS;
-            case "lily_of_the_valley" -> BlockRegistry.LILY_OF_THE_VALLEY_SEEDS;
-            case "wither_rose" -> BlockRegistry.WITHER_ROSE_SEEDS;
+            case "allium" -> Registry.ALLIUM_SEEDS;
+            case "azure_bluet" -> Registry.AZURE_BLUET_SEEDS;
+            case "blue_orchid" -> Registry.BLUE_ORCHID_SEEDS;
+            case "dandelion" -> Registry.DANDELION_SEEDS;
+            case "poppy" -> Registry.POPPY_SEEDS;
+            case "red_tulip" -> Registry.RED_TULIP_SEEDS;
+            case "orange_tulip" -> Registry.ORANGE_TULIP_SEEDS;
+            case "white_tulip" -> Registry.WHITE_TULIP_SEEDS;
+            case "pink_tulip" -> Registry.PINK_TULIP_SEEDS;
+            case "oxeye_daisy" -> Registry.OXEYE_DAISY_SEEDS;
+            case "cornflower" -> Registry.CORNFLOWER_SEEDS;
+            case "lily_of_the_valley" -> Registry.LILY_OF_THE_VALLEY_SEEDS;
+            case "wither_rose" -> Registry.WITHER_ROSE_SEEDS;
             default -> null;
         };
     }

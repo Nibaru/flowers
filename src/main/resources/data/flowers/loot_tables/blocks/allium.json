@@ -23,6 +23,17 @@
                   }
                 }
               ],
+              "functions": [
+                {
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:binomial_with_bonus_count",
+                  "function": "minecraft:apply_bonus",
+                  "parameters": {
+                    "extra": 2,
+                    "probability": 0.57142865
+                  }
+                }
+              ],
               "name": "minecraft:allium"
             },
             {

@@ -11,5 +11,6 @@
   "item.flowers.oxeye_daisy_seeds": "Oxeye Daisy Seeds",
   "item.flowers.cornflower_seeds":  "Cornflower Seeds",
   "item.flowers.lily_of_the_valley_seeds": "Lily of the Valley Seeds",
-  "item.flowers.wither_rose_seeds":  "Wither Rose Seeds"
+  "item.flowers.wither_rose_seeds":  "Wither Rose Seeds",
+  "entity.minecraft.villager.florist":  "Florist"
 }
