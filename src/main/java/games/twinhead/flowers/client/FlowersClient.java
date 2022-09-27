@@ -21,6 +21,5 @@ public class FlowersClient implements ClientModInitializer {
 
 
         EntityRendererRegistry.register(EntityRegistry.MOOBLOOM, MoobloomEntityRenderer::new);
-
     }
 }

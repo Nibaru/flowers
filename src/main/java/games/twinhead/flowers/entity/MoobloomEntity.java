@@ -1,5 +1,6 @@
 package games.twinhead.flowers.entity;
 
+import games.twinhead.flowers.Flowers;
 import games.twinhead.flowers.Registry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -13,10 +14,13 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
@@ -25,6 +29,8 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -38,19 +44,22 @@ public class MoobloomEntity extends CowEntity implements Shearable {
     private static final TrackedData<Integer> FLOWER_AGE;
     private static final TrackedData<Integer> FLOWER_TYPE;
 
+    private int eatGrassTimer;
+    private EatGrassGoal eatGrassGoal;
+
 
     public MoobloomEntity(EntityType<? extends MoobloomEntity> entityType, World world) {
         super(entityType, world);
     }
 
     protected void initGoals() {
-        EatGrassGoal grass = new EatGrassGoal(this);
+        eatGrassGoal = new EatGrassGoal(this);
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new EscapeDangerGoal(this, 2.0));
         this.goalSelector.add(2, new AnimalMateGoal(this, 1.0));
         this.goalSelector.add(3, new TemptGoal(this, 1.25, Ingredient.ofItems(new ItemConvertible[]{Items.WHEAT}), false));
         this.goalSelector.add(4, new FollowParentGoal(this, 1.25));
-        this.goalSelector.add(5, new EatGrassGoal(this));
+        this.goalSelector.add(5, eatGrassGoal);
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.add(8, new LookAroundGoal(this));
@@ -61,14 +70,10 @@ public class MoobloomEntity extends CowEntity implements Shearable {
         return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.20000000298023224);
     }
 
-    public MoobloomEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-        return (MoobloomEntity)EntityRegistry.MOOBLOOM.create(serverWorld);
-    }
-
     @Nullable
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
         this.setFlowerAge(random.nextBetween(0, 4));
-        this.setFlowerType(0);
+        this.setFlowerType(random.nextBetween(0, 11));
         return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
 
@@ -76,6 +81,23 @@ public class MoobloomEntity extends CowEntity implements Shearable {
         super.initDataTracker();
         this.dataTracker.startTracking(FLOWER_AGE, 0);
         this.dataTracker.startTracking(FLOWER_TYPE, 0);
+    }
+
+    public void tickMovement() {
+        if (this.world.isClient) {
+            this.eatGrassTimer = Math.max(0, this.eatGrassTimer - 1);
+        }
+
+        super.tickMovement();
+    }
+
+    public void handleStatus(byte status) {
+        if (status == EntityStatuses.SET_SHEEP_EAT_GRASS_TIMER_OR_PRIME_TNT_MINECART) {
+            this.eatGrassTimer = 40;
+        } else {
+            super.handleStatus(status);
+        }
+
     }
 
     public void onEatingGrass() {
@@ -88,12 +110,42 @@ public class MoobloomEntity extends CowEntity implements Shearable {
         }
     }
 
-    public BlockState getFlowerState() {
-        return Registry.DANDELION_SEEDLING.getDefaultState().with(Properties.AGE_4, getFlowerAge());
+    public float getNeckAngle(float delta) {
+        if (this.eatGrassTimer <= 0) {
+            return 0.0F;
+        } else if (this.eatGrassTimer >= 4 && this.eatGrassTimer <= 36) {
+            return 1.0F;
+        } else {
+            return this.eatGrassTimer < 4 ? ((float)this.eatGrassTimer - delta) / 4.0F : -((float)(this.eatGrassTimer - 40) - delta) / 4.0F;
+        }
+    }
 
-//        return switch (getFlowerType()){
-//            case 0 -> Blocks.DANDELION.getDefaultState();
-//        };
+    public float getHeadAngle(float delta) {
+        if (this.eatGrassTimer > 4 && this.eatGrassTimer <= 36) {
+            float f = ((float)(this.eatGrassTimer - 4) - delta) / 32.0F;
+            return 0.62831855F + 0.21991149F * MathHelper.sin(f * 28.7F);
+        } else {
+            return this.eatGrassTimer > 0 ? 0.62831855F : this.getPitch() * 0.017453292F;
+        }
+    }
+
+    public BlockState getFlowerState() {
+        BlockState state = switch (getFlowerType()){
+            case 0 -> Registry.ALLIUM_SEEDLING.getDefaultState();
+            case 1 -> Registry.AZURE_BLUET_SEEDLING.getDefaultState();
+            case 2 -> Registry.BLUE_ORCHID_SEEDLING.getDefaultState();
+            case 3 -> Registry.CORNFLOWER_SEEDLING.getDefaultState();
+            case 4 -> Registry.DANDELION_SEEDLING.getDefaultState();
+            case 5 -> Registry.LILY_OF_THE_VALLEY_SEEDLING.getDefaultState();
+            case 6 -> Registry.ORANGE_TULIP_SEEDLING.getDefaultState();
+            case 7 -> Registry.OXEYE_DAISY_SEEDLING.getDefaultState();
+            case 8 -> Registry.PINK_TULIP_SEEDLING.getDefaultState();
+            case 9 -> Registry.POPPY_SEEDLING.getDefaultState();
+            case 10 -> Registry.RED_TULIP_SEEDLING.getDefaultState();
+            case 11 -> Registry.WHITE_TULIP_SEEDLING.getDefaultState();
+            case 12 -> Registry.WITHER_ROSE_SEEDLING.getDefaultState();
+            default -> Registry.DANDELION_SEEDLING.getDefaultState();};
+        return state.with(Properties.AGE_4, getFlowerAge());
     }
 
 
@@ -118,7 +170,7 @@ public class MoobloomEntity extends CowEntity implements Shearable {
         return this.dataTracker.get(FLOWER_AGE);
     }
 
-    private int getFlowerType() {
+    public int getFlowerType() {
         return this.dataTracker.get(FLOWER_TYPE);
     }
 
@@ -143,7 +195,7 @@ public class MoobloomEntity extends CowEntity implements Shearable {
         int i = 1 + this.random.nextInt(3);
 
         for(int j = 0; j < i; ++j) {
-            ItemEntity itemEntity = this.dropItem(Items.DANDELION, 1);
+            ItemEntity itemEntity = this.dropItem(getItemFromInt(), 1);
             if (itemEntity != null) {
                 itemEntity.setVelocity(itemEntity.getVelocity().add((double)((this.random.nextFloat() - this.random.nextFloat()) * 0.1F), (double)(this.random.nextFloat() * 0.05F), (double)((this.random.nextFloat() - this.random.nextFloat()) * 0.1F)));
             }
@@ -171,13 +223,61 @@ public class MoobloomEntity extends CowEntity implements Shearable {
         }else if (itemStack.isOf(Items.BONE_MEAL)) {
             if (!this.world.isClient && this.getFlowerAge() < 4 && this.getFlowerAge() > 0) {
                 ageFlower(random.nextBetween(1, 4));
+                itemStack.decrement(1);
                 return ActionResult.SUCCESS;
             } else {
                 return ActionResult.CONSUME;
             }
-        } else {
+        }else if (Registry.seeds.contains(itemStack.getItem())) {
+            if (!this.world.isClient && this.getFlowerAge() == 0) {
+                this.setFlowerType(itemToInt(itemStack.getItem()));
+                this.setFlowerAge(1);
+                itemStack.decrement(1);
+                return ActionResult.SUCCESS;
+            } else {
+                return ActionResult.CONSUME;
+            }
+        }else {
             return super.interactMob(player, hand);
         }
+    }
+
+    public MoobloomEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
+        MoobloomEntity moobloom = (MoobloomEntity) passiveEntity;
+        MoobloomEntity moobloom2 = (MoobloomEntity) EntityRegistry.MOOBLOOM.create(serverWorld);
+        moobloom2.setFlowerType(moobloom.getFlowerType());
+        return moobloom2;
+    }
+
+    private int itemToInt(Item item){
+        int count = 0;
+        for (Item seed: Registry.seeds) {
+            if (item.equals(seed)){
+                return count;
+            } else {
+                count++;
+            }
+        }
+        return 0;
+    }
+
+    private Item getItemFromInt(){
+        return switch (getFlowerType()){
+            case 0 -> Items.ALLIUM;
+            case 1 -> Items.AZURE_BLUET;
+            case 2 -> Items.BLUE_ORCHID;
+            case 3 -> Items.CORNFLOWER;
+            case 4 -> Items.DANDELION;
+            case 5 -> Items.LILY_OF_THE_VALLEY;
+            case 6 -> Items.ORANGE_TULIP;
+            case 7 -> Items.OXEYE_DAISY;
+            case 8 -> Items.PINK_TULIP;
+            case 9 -> Items.POPPY;
+            case 10 -> Items.RED_TULIP;
+            case 11 -> Items.WHITE_TULIP;
+            case 12 -> Items.WITHER_ROSE;
+            default -> throw new IllegalStateException("Unexpected value: " + getFlowerType());
+        };
     }
 
 

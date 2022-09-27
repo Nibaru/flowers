@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "minecraft:block/air"
+    },
+    "age=1": {
+      "model": "flowers:block/oxeye_daisy_seedling_0"
+    },
+    "age=2": {
+      "model": "flowers:block/oxeye_daisy_seedling_1"
+    },
+    "age=3": {
+      "model": "flowers:block/oxeye_daisy_seedling_2"
+    },
+    "age=4": {
+      "model": "minecraft:block/oxeye_daisy"
+    }
+  }
+}
