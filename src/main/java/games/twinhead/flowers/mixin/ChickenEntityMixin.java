@@ -1,6 +1,7 @@
 package games.twinhead.flowers.mixin;
 
-import games.twinhead.flowers.Registry;
+import games.twinhead.flowers.BlockRegistry;
+import games.twinhead.flowers.Flower;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.AnimalEntity;
@@ -55,18 +56,18 @@ public class ChickenEntityMixin extends AnimalEntity {
                 Items.MELON_SEEDS,
                 Items.PUMPKIN_SEEDS,
                 Items.BEETROOT_SEEDS,
-                Registry.ALLIUM_SEEDS,
-                Registry.AZURE_BLUET_SEEDS,
-                Registry.BLUE_ORCHID_SEEDS,
-                Registry.DANDELION_SEEDS,
-                Registry.POPPY_SEEDS,
-                Registry.RED_TULIP_SEEDS,
-                Registry.ORANGE_TULIP_SEEDS,
-                Registry.WHITE_TULIP_SEEDS,
-                Registry.PINK_TULIP_SEEDS,
-                Registry.OXEYE_DAISY_SEEDS,
-                Registry.CORNFLOWER_SEEDS,
-                Registry.LILY_OF_THE_VALLEY_SEEDS,
-                Registry.WITHER_ROSE_SEEDS);
+                Flower.ALLIUM.getSeeds(),
+                Flower.AZURE_BLUET.getSeeds(),
+                Flower.BLUE_ORCHID.getSeeds(),
+                Flower.DANDELION.getSeeds(),
+                Flower.POPPY.getSeeds(),
+                Flower.RED_TULIP.getSeeds(),
+                Flower.ORANGE_TULIP.getSeeds(),
+                Flower.WHITE_TULIP.getSeeds(),
+                Flower.PINK_TULIP.getSeeds(),
+                Flower.OXEYE_DAISY.getSeeds(),
+                Flower.CORNFLOWER.getSeeds(),
+                Flower.LILY_OF_THE_VALLEY.getSeeds(),
+                Flower.WITHER_ROSE.getSeeds());
     }
 }

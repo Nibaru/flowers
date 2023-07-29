@@ -1,9 +1,8 @@
 package games.twinhead.flowers.entity;
 
-import games.twinhead.flowers.Flowers;
-import games.twinhead.flowers.Registry;
+import games.twinhead.flowers.BlockRegistry;
+import games.twinhead.flowers.Flower;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -14,13 +13,11 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
@@ -29,7 +26,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -84,7 +80,7 @@ public class MoobloomEntity extends CowEntity implements Shearable {
     }
 
     public void tickMovement() {
-        if (this.world.isClient) {
+        if (this.getWorld().isClient) {
             this.eatGrassTimer = Math.max(0, this.eatGrassTimer - 1);
         }
 
@@ -129,22 +125,22 @@ public class MoobloomEntity extends CowEntity implements Shearable {
         }
     }
 
-    public BlockState getFlowerState() {
+    public BlockState getFlowerState(){
         BlockState state = switch (getFlowerType()){
-            case 0 -> Registry.ALLIUM_SEEDLING.getDefaultState();
-            case 1 -> Registry.AZURE_BLUET_SEEDLING.getDefaultState();
-            case 2 -> Registry.BLUE_ORCHID_SEEDLING.getDefaultState();
-            case 3 -> Registry.CORNFLOWER_SEEDLING.getDefaultState();
-            case 4 -> Registry.DANDELION_SEEDLING.getDefaultState();
-            case 5 -> Registry.LILY_OF_THE_VALLEY_SEEDLING.getDefaultState();
-            case 6 -> Registry.ORANGE_TULIP_SEEDLING.getDefaultState();
-            case 7 -> Registry.OXEYE_DAISY_SEEDLING.getDefaultState();
-            case 8 -> Registry.PINK_TULIP_SEEDLING.getDefaultState();
-            case 9 -> Registry.POPPY_SEEDLING.getDefaultState();
-            case 10 -> Registry.RED_TULIP_SEEDLING.getDefaultState();
-            case 11 -> Registry.WHITE_TULIP_SEEDLING.getDefaultState();
-            case 12 -> Registry.WITHER_ROSE_SEEDLING.getDefaultState();
-            default -> Registry.DANDELION_SEEDLING.getDefaultState();};
+            case 0 -> Flower.ALLIUM.getSeedling().getDefaultState();
+            case 1 -> Flower.AZURE_BLUET.getSeedling().getDefaultState();
+            case 2 -> Flower.BLUE_ORCHID.getSeedling().getDefaultState();
+            case 3 -> Flower.CORNFLOWER.getSeedling().getDefaultState();
+            case 4 -> Flower.DANDELION.getSeedling().getDefaultState();
+            case 5 -> Flower.LILY_OF_THE_VALLEY.getSeedling().getDefaultState();
+            case 6 -> Flower.ORANGE_TULIP.getSeedling().getDefaultState();
+            case 7 -> Flower.OXEYE_DAISY.getSeedling().getDefaultState();
+            case 8 -> Flower.PINK_TULIP.getSeedling().getDefaultState();
+            case 9 -> Flower.POPPY.getSeedling().getDefaultState();
+            case 10 -> Flower.RED_TULIP.getSeedling().getDefaultState();
+            case 11 -> Flower.WHITE_TULIP.getSeedling().getDefaultState();
+            case 12 -> Flower.WITHER_ROSE.getSeedling().getDefaultState();
+            default -> Flower.DANDELION.getSeedling().getDefaultState();};
         return state.with(Properties.AGE_4, getFlowerAge());
     }
 
@@ -190,7 +186,7 @@ public class MoobloomEntity extends CowEntity implements Shearable {
     @Override
     public void sheared(SoundCategory shearedSoundCategory) {
         this.setFlowerAge(0);
-        this.world.playSoundFromEntity((PlayerEntity)null, this, SoundEvents.ENTITY_SHEEP_SHEAR, shearedSoundCategory, 1.0F, 1.0F);
+        this.getWorld().playSoundFromEntity((PlayerEntity)null, this, SoundEvents.ENTITY_SHEEP_SHEAR, shearedSoundCategory, 1.0F, 1.0F);
 
         int i = 1 + this.random.nextInt(3);
 
@@ -210,7 +206,7 @@ public class MoobloomEntity extends CowEntity implements Shearable {
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
         if (itemStack.isOf(Items.SHEARS)) {
-            if (!this.world.isClient && this.isShearable()) {
+            if (!this.getWorld().isClient && this.isShearable()) {
                 this.sheared(SoundCategory.PLAYERS);
                 this.emitGameEvent(GameEvent.SHEAR, player);
                 itemStack.damage(1, (LivingEntity)player, (Consumer<LivingEntity>)((playerx) -> {
@@ -221,15 +217,15 @@ public class MoobloomEntity extends CowEntity implements Shearable {
                 return ActionResult.CONSUME;
             }
         }else if (itemStack.isOf(Items.BONE_MEAL)) {
-            if (!this.world.isClient && this.getFlowerAge() < 4 && this.getFlowerAge() > 0) {
+            if (!this.getWorld().isClient && this.getFlowerAge() < 4 && this.getFlowerAge() > 0) {
                 ageFlower(random.nextBetween(1, 4));
                 itemStack.decrement(1);
                 return ActionResult.SUCCESS;
             } else {
                 return ActionResult.CONSUME;
             }
-        }else if (Registry.seeds.contains(itemStack.getItem())) {
-            if (!this.world.isClient && this.getFlowerAge() == 0) {
+        }else if (BlockRegistry.SEEDS.containsValue(itemStack.getItem())) {
+            if (!this.getWorld().isClient && this.getFlowerAge() == 0) {
                 this.setFlowerType(itemToInt(itemStack.getItem()));
                 this.setFlowerAge(1);
                 itemStack.decrement(1);
@@ -251,7 +247,7 @@ public class MoobloomEntity extends CowEntity implements Shearable {
 
     private int itemToInt(Item item){
         int count = 0;
-        for (Item seed: Registry.seeds) {
+        for (Item seed: BlockRegistry.SEEDS.values()) {
             if (item.equals(seed)){
                 return count;
             } else {

@@ -1,19 +1,20 @@
 package games.twinhead.flowers.entity;
 
 import com.google.common.collect.ImmutableSet;
+import games.twinhead.flowers.Flower;
 import games.twinhead.flowers.Flowers;
-import games.twinhead.flowers.Registry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.object.builder.v1.villager.VillagerProfessionBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
@@ -24,22 +25,23 @@ import java.util.Set;
 
 public class Villager {
     public static final Set<Item> tierOneSeeds = new HashSet<>(List.of(new Item[]{
-            Registry.POPPY_SEEDS,
-            Registry.DANDELION_SEEDS,
-            Registry.AZURE_BLUET_SEEDS,
-            Registry.RED_TULIP_SEEDS,
-            Registry.PINK_TULIP_SEEDS,
-            Registry.WHITE_TULIP_SEEDS,
-            Registry.ORANGE_TULIP_SEEDS,
-            Registry.AZURE_BLUET_SEEDS,
-            Registry.OXEYE_DAISY_SEEDS,
-            Registry.CORNFLOWER_SEEDS
+            Flower.POPPY.getSeeds(),
+            Flower.DANDELION.getSeeds(),
+            Flower.AZURE_BLUET.getSeeds(),
+            Flower.RED_TULIP.getSeeds(),
+            Flower.PINK_TULIP.getSeeds(),
+            Flower.WHITE_TULIP.getSeeds(),
+            Flower.ORANGE_TULIP.getSeeds(),
+            Flower.AZURE_BLUET.getSeeds(),
+            Flower.OXEYE_DAISY.getSeeds(),
+            Flower.CORNFLOWER.getSeeds()
     }));
 
     public static final Set<Item> tierTwoSeeds = new HashSet<>(List.of(new Item[]{
-            Registry.BLUE_ORCHID_SEEDS,
-            Registry.ALLIUM_SEEDS,
-            Registry.LILY_OF_THE_VALLEY_SEEDS,
+            Flower.BLUE_ORCHID.getSeeds(),
+            Flower.ALLIUM.getSeeds(),
+            Flower.LILY_OF_THE_VALLEY.getSeeds(),
+            Items.TORCHFLOWER_SEEDS
     }));
 
 
@@ -60,6 +62,7 @@ public class Villager {
             Items.BLUE_ORCHID,
             Items.ALLIUM,
             Items.LILY_OF_THE_VALLEY,
+            Items.TORCHFLOWER
     }));
 
     public static final Set<Item> tallFlowers = new HashSet<>(List.of(new Item[]{
@@ -84,16 +87,17 @@ public class Villager {
 
 
 
-    public static final PointOfInterestType FLORIST_POI = registerPOI("florist_poi", Blocks.HAY_BLOCK);
-    public static final VillagerProfession FLORIST = registerProfession("florist", RegistryKey.of(net.minecraft.util.registry.Registry.POINT_OF_INTEREST_TYPE_KEY, new Identifier(Flowers.modID, "florist_poi")));
+    public static final PointOfInterestType FLORIST_POI = registerPOI("florist_poi");
+    public static final VillagerProfession FLORIST = registerProfession("florist", RegistryKey.of(Registries.POINT_OF_INTEREST_TYPE.getKey(), new Identifier(Flowers.modID, "florist_poi")));
 
+    @SuppressWarnings("deprecation")
     public static VillagerProfession registerProfession(String name, RegistryKey<PointOfInterestType> type) {
-        return net.minecraft.util.registry.Registry.register(net.minecraft.util.registry.Registry.VILLAGER_PROFESSION, new Identifier(Flowers.modID, name),
+        return Registry.register(Registries.VILLAGER_PROFESSION, new Identifier(Flowers.modID, name),
                 VillagerProfessionBuilder.create().id(new Identifier(Flowers.modID, name)).workstation(type)
                         .workSound(SoundEvents.ENTITY_VILLAGER_WORK_ARMORER).build());
     }
 
-    public static PointOfInterestType registerPOI(String name, Block block) {
+    public static PointOfInterestType registerPOI(String name) {
         return PointOfInterestHelper.register(new Identifier(Flowers.modID, name),
                 1, 1, getAllFlowerPotStates());
     }
@@ -124,6 +128,7 @@ public class Villager {
         states.addAll(ImmutableSet.copyOf(Blocks.POTTED_CACTUS.getStateManager().getStates()));
         states.addAll(ImmutableSet.copyOf(Blocks.POTTED_FERN.getStateManager().getStates()));
         states.addAll(ImmutableSet.copyOf(Blocks.POTTED_DEAD_BUSH.getStateManager().getStates()));
+        states.addAll(ImmutableSet.copyOf(Blocks.POTTED_TORCHFLOWER.getStateManager().getStates()));
         return states;
     }
 
@@ -227,7 +232,7 @@ public class Villager {
 
             factories.add(((entity, random) -> new TradeOffer(
                     new ItemStack(Items.EMERALD, random.nextBetween(20, 64)),
-                    new ItemStack(Registry.WITHER_ROSE_SEEDS, random.nextBetween(1, 3)),
+                    new ItemStack(Flower.WITHER_ROSE.getSeeds(), random.nextBetween(1, 3)),
                     4, 12, 0.02f
             )));
 

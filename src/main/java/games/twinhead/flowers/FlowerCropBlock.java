@@ -50,19 +50,19 @@ public class FlowerCropBlock extends CropBlock {
 
     protected ItemConvertible getSeedsItem() {
         return switch (flower){
-            case "allium" -> Registry.ALLIUM_SEEDS;
-            case "azure_bluet" -> Registry.AZURE_BLUET_SEEDS;
-            case "blue_orchid" -> Registry.BLUE_ORCHID_SEEDS;
-            case "dandelion" -> Registry.DANDELION_SEEDS;
-            case "poppy" -> Registry.POPPY_SEEDS;
-            case "red_tulip" -> Registry.RED_TULIP_SEEDS;
-            case "orange_tulip" -> Registry.ORANGE_TULIP_SEEDS;
-            case "white_tulip" -> Registry.WHITE_TULIP_SEEDS;
-            case "pink_tulip" -> Registry.PINK_TULIP_SEEDS;
-            case "oxeye_daisy" -> Registry.OXEYE_DAISY_SEEDS;
-            case "cornflower" -> Registry.CORNFLOWER_SEEDS;
-            case "lily_of_the_valley" -> Registry.LILY_OF_THE_VALLEY_SEEDS;
-            case "wither_rose" -> Registry.WITHER_ROSE_SEEDS;
+            case "allium" -> Flower.ALLIUM.getSeeds();
+            case "azure_bluet" -> Flower.AZURE_BLUET.getSeeds();
+            case "blue_orchid" -> Flower.BLUE_ORCHID.getSeeds();
+            case "dandelion" -> Flower.DANDELION.getSeeds();
+            case "poppy" -> Flower.POPPY.getSeeds();
+            case "red_tulip" -> Flower.RED_TULIP.getSeeds();
+            case "orange_tulip" -> Flower.ORANGE_TULIP.getSeeds();
+            case "white_tulip" -> Flower.WHITE_TULIP.getSeeds();
+            case "pink_tulip" -> Flower.PINK_TULIP.getSeeds();
+            case "oxeye_daisy" -> Flower.OXEYE_DAISY.getSeeds();
+            case "cornflower" -> Flower.CORNFLOWER.getSeeds();
+            case "lily_of_the_valley" -> Flower.LILY_OF_THE_VALLEY.getSeeds();
+            case "wither_rose" -> Flower.WITHER_ROSE.getSeeds();
             default -> null;
         };
     }

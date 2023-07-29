@@ -24,7 +24,7 @@ public class Flowers implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        Registry.register();
+        BlockRegistry.register();
         EntityRegistry.register();
 
         Flowers.LOGGER.debug("Pre Villagers ++++++++++++++");
@@ -42,58 +42,58 @@ public class Flowers implements ModInitializer {
             // We also check that the loot table ID is equal to the ID we want.
             if (source.isBuiltin() && GRASS_LOOT_TABLE_ID.equals(id)) {
                 LootPool.Builder any = LootPool.builder()
-                        .with(ItemEntry.builder(Registry.DANDELION_SEEDS))
-                        .with(ItemEntry.builder(Registry.POPPY_SEEDS))
+                        .with(ItemEntry.builder(Flower.DANDELION.getSeeds()))
+                        .with(ItemEntry.builder(Flower.POPPY.getSeeds()))
                         .conditionally(RandomChanceLootCondition.builder(0.10f));
 
                 LootPool.Builder plains = LootPool.builder()
-                        .with(ItemEntry.builder(Registry.AZURE_BLUET_SEEDS))
-                        .with(ItemEntry.builder(Registry.RED_TULIP_SEEDS))
-                        .with(ItemEntry.builder(Registry.PINK_TULIP_SEEDS))
-                        .with(ItemEntry.builder(Registry.WHITE_TULIP_SEEDS))
-                        .with(ItemEntry.builder(Registry.ORANGE_TULIP_SEEDS))
-                        .with(ItemEntry.builder(Registry.AZURE_BLUET_SEEDS))
-                        .with(ItemEntry.builder(Registry.OXEYE_DAISY_SEEDS))
-                        .with(ItemEntry.builder(Registry.CORNFLOWER_SEEDS))
+                        .with(ItemEntry.builder(Flower.AZURE_BLUET.getSeeds()))
+                        .with(ItemEntry.builder(Flower.RED_TULIP.getSeeds()))
+                        .with(ItemEntry.builder(Flower.PINK_TULIP.getSeeds()))
+                        .with(ItemEntry.builder(Flower.WHITE_TULIP.getSeeds()))
+                        .with(ItemEntry.builder(Flower.ORANGE_TULIP.getSeeds()))
+                        .with(ItemEntry.builder(Flower.AZURE_BLUET.getSeeds()))
+                        .with(ItemEntry.builder(Flower.OXEYE_DAISY.getSeeds()))
+                        .with(ItemEntry.builder(Flower.CORNFLOWER.getSeeds()))
                         .conditionally(LocationCheckLootCondition.builder(LocationPredicate.Builder.create().biome(BiomeKeys.PLAINS)))
                         .conditionally(RandomChanceLootCondition.builder(0.15f));
 
                 LootPool.Builder sunflower_plains = LootPool.builder()
-                        .with(ItemEntry.builder(Registry.AZURE_BLUET_SEEDS))
-                        .with(ItemEntry.builder(Registry.RED_TULIP_SEEDS))
-                        .with(ItemEntry.builder(Registry.PINK_TULIP_SEEDS))
-                        .with(ItemEntry.builder(Registry.WHITE_TULIP_SEEDS))
-                        .with(ItemEntry.builder(Registry.ORANGE_TULIP_SEEDS))
-                        .with(ItemEntry.builder(Registry.AZURE_BLUET_SEEDS))
-                        .with(ItemEntry.builder(Registry.OXEYE_DAISY_SEEDS))
-                        .with(ItemEntry.builder(Registry.CORNFLOWER_SEEDS))
+                        .with(ItemEntry.builder(Flower.AZURE_BLUET.getSeeds()))
+                        .with(ItemEntry.builder(Flower.RED_TULIP.getSeeds()))
+                        .with(ItemEntry.builder(Flower.PINK_TULIP.getSeeds()))
+                        .with(ItemEntry.builder(Flower.WHITE_TULIP.getSeeds()))
+                        .with(ItemEntry.builder(Flower.ORANGE_TULIP.getSeeds()))
+                        .with(ItemEntry.builder(Flower.AZURE_BLUET.getSeeds()))
+                        .with(ItemEntry.builder(Flower.OXEYE_DAISY.getSeeds()))
+                        .with(ItemEntry.builder(Flower.CORNFLOWER.getSeeds()))
                         .conditionally(LocationCheckLootCondition.builder(LocationPredicate.Builder.create().biome(BiomeKeys.SUNFLOWER_PLAINS)))
                         .conditionally(RandomChanceLootCondition.builder(0.15f));
 
                 LootPool.Builder swamp = LootPool.builder()
-                        .with(ItemEntry.builder(Registry.BLUE_ORCHID_SEEDS))
+                        .with(ItemEntry.builder(Flower.BLUE_ORCHID.getSeeds()))
                         .conditionally(LocationCheckLootCondition.builder(LocationPredicate.Builder.create().biome(BiomeKeys.SWAMP)))
                         .conditionally(RandomChanceLootCondition.builder(0.15f));
 
                 LootPool.Builder flower_forest = LootPool.builder()
-                        .with(ItemEntry.builder(Registry.ALLIUM_SEEDS))
-                        .with(ItemEntry.builder(Registry.AZURE_BLUET_SEEDS))
-                        .with(ItemEntry.builder(Registry.RED_TULIP_SEEDS))
-                        .with(ItemEntry.builder(Registry.PINK_TULIP_SEEDS))
-                        .with(ItemEntry.builder(Registry.WHITE_TULIP_SEEDS))
-                        .with(ItemEntry.builder(Registry.ORANGE_TULIP_SEEDS))
-                        .with(ItemEntry.builder(Registry.AZURE_BLUET_SEEDS))
-                        .with(ItemEntry.builder(Registry.OXEYE_DAISY_SEEDS))
-                        .with(ItemEntry.builder(Registry.CORNFLOWER_SEEDS))
-                        .with(ItemEntry.builder(Registry.LILY_OF_THE_VALLEY_SEEDS))
+                        .with(ItemEntry.builder(Flower.ALLIUM.getSeeds()))
+                        .with(ItemEntry.builder(Flower.AZURE_BLUET.getSeeds()))
+                        .with(ItemEntry.builder(Flower.RED_TULIP.getSeeds()))
+                        .with(ItemEntry.builder(Flower.PINK_TULIP.getSeeds()))
+                        .with(ItemEntry.builder(Flower.WHITE_TULIP.getSeeds()))
+                        .with(ItemEntry.builder(Flower.ORANGE_TULIP.getSeeds()))
+                        .with(ItemEntry.builder(Flower.AZURE_BLUET.getSeeds()))
+                        .with(ItemEntry.builder(Flower.OXEYE_DAISY.getSeeds()))
+                        .with(ItemEntry.builder(Flower.CORNFLOWER.getSeeds()))
+                        .with(ItemEntry.builder(Flower.LILY_OF_THE_VALLEY.getSeeds()))
                         .conditionally(LocationCheckLootCondition.builder(LocationPredicate.Builder.create().biome(BiomeKeys.FLOWER_FOREST)))
                         .conditionally(RandomChanceLootCondition.builder(0.30f));
 
                 LootPool.Builder meadow = LootPool.builder()
-                        .with(ItemEntry.builder(Registry.ALLIUM_SEEDS))
-                        .with(ItemEntry.builder(Registry.AZURE_BLUET_SEEDS))
-                        .with(ItemEntry.builder(Registry.OXEYE_DAISY_SEEDS))
-                        .with(ItemEntry.builder(Registry.CORNFLOWER_SEEDS))
+                        .with(ItemEntry.builder(Flower.ALLIUM.getSeeds()))
+                        .with(ItemEntry.builder(Flower.AZURE_BLUET.getSeeds()))
+                        .with(ItemEntry.builder(Flower.OXEYE_DAISY.getSeeds()))
+                        .with(ItemEntry.builder(Flower.CORNFLOWER.getSeeds()))
                         .conditionally(LocationCheckLootCondition.builder(LocationPredicate.Builder.create().biome(BiomeKeys.MEADOW)))
                         .conditionally(RandomChanceLootCondition.builder(0.30f));
 
@@ -107,7 +107,7 @@ public class Flowers implements ModInitializer {
 
             if (source.isBuiltin() && WITHER_SKELETON_LOOT_TABLE_ID.equals(id)) {
                 LootPool.Builder wither_rose_seeds = LootPool.builder()
-                        .with(ItemEntry.builder(Registry.WITHER_ROSE_SEEDS))
+                        .with(ItemEntry.builder(Flower.WITHER_ROSE.getSeeds()))
                         .conditionally(RandomChanceWithLootingLootCondition.builder(0.5f, 0.05f));
                 tableBuilder.pool(wither_rose_seeds);
             }

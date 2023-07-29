@@ -7,11 +7,11 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 
-public class DandelionSeedlingBlock extends PlantBlock {
+public class SeedlingBlock extends PlantBlock {
     public static final int MAX_AGE = 4;
     public static final IntProperty AGE;
 
-    public DandelionSeedlingBlock(Settings settings) {
+    public SeedlingBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(this.getAgeProperty(), 0));
     }

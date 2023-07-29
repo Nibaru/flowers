@@ -2,11 +2,13 @@
   "schemaVersion": 1,
   "id": "flowers",
   "version": "${version}",
-  "name": "Flowers",
-  "description": "",
-  "authors": [],
-  "contact": {},
-  "license": "MIT",
+  "name": "Flowers & Mooblooms",
+  "description": "Plant your way to happiness, surrounded by growable flowers and friendly MooBlooms.",
+  "authors": ["Nibaru"],
+  "contact": {
+    "sources": "https://github.com/Nibaru/flowers"
+  },
+  "license": "LGPL-3",
   "icon": "assets/flowers/icon.png",
   "environment": "*",
   "entrypoints": {
@@ -21,8 +23,8 @@
     "flowers.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.9",
+    "fabricloader": ">=0.14.21",
     "fabric": "*",
-    "minecraft": "1.19.2"
+    "minecraft": ">=1.20"
   }
 }

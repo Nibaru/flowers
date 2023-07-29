@@ -1,6 +1,6 @@
 package games.twinhead.flowers.client;
 
-import games.twinhead.flowers.Registry;
+import games.twinhead.flowers.BlockRegistry;
 import games.twinhead.flowers.entity.EntityRegistry;
 import games.twinhead.flowers.entity.MoobloomEntityRenderer;
 import net.fabricmc.api.ClientModInitializer;
@@ -15,7 +15,7 @@ import net.minecraft.client.render.RenderLayer;
 public class FlowersClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        for (Block block: Registry.crops) {
+        for (Block block: BlockRegistry.CROPS.values()) {
             BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
         }
 

@@ -7,15 +7,15 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 
 public class EntityRegistry {
 
     public static final EntityType<MoobloomEntity> MOOBLOOM = Registry.register(
-            Registry.ENTITY_TYPE,
+            Registries.ENTITY_TYPE,
             new Identifier("flowers", "moobloom"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoobloomEntity::new).dimensions(EntityDimensions.changing(0.9f, 1.5f)).build());
 
