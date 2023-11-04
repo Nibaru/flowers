@@ -1,6 +1,5 @@
 package games.twinhead.flowers.mixin;
 
-import games.twinhead.flowers.BlockRegistry;
 import games.twinhead.flowers.Flower;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
@@ -13,8 +12,8 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -45,17 +44,13 @@ public class ChickenEntityMixin extends AnimalEntity {
         ci.cancel();
     }
 
-    @Nullable
-    @Override
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return null;
-    }
-
     public Ingredient getIngredients(){
-        return Ingredient.ofItems(Items.WHEAT_SEEDS,
+        return Ingredient.ofItems(
+                Items.WHEAT_SEEDS,
                 Items.MELON_SEEDS,
                 Items.PUMPKIN_SEEDS,
                 Items.BEETROOT_SEEDS,
+                Items.TORCHFLOWER_SEEDS,
                 Flower.ALLIUM.getSeeds(),
                 Flower.AZURE_BLUET.getSeeds(),
                 Flower.BLUE_ORCHID.getSeeds(),
@@ -69,5 +64,10 @@ public class ChickenEntityMixin extends AnimalEntity {
                 Flower.CORNFLOWER.getSeeds(),
                 Flower.LILY_OF_THE_VALLEY.getSeeds(),
                 Flower.WITHER_ROSE.getSeeds());
+    }
+
+    @Shadow
+    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+        return null;
     }
 }
