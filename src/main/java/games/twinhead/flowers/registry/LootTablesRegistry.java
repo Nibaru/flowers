@@ -10,17 +10,13 @@ import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.condition.RandomChanceWithLootingLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.predicate.entity.LocationPredicate;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.BiomeKeys;
 
 public class LootTablesRegistry {
 
-    private static final Identifier GRASS_LOOT_TABLE_ID = Blocks.SHORT_GRASS.getLootTableId();
-    private static final Identifier WITHER_SKELETON_LOOT_TABLE_ID = EntityType.WITHER_SKELETON.getLootTableId();
-
     public static void register(){
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-            if (source.isBuiltin() && GRASS_LOOT_TABLE_ID.equals(id)) {
+            if (source.isBuiltin() && Blocks.SHORT_GRASS.getLootTableId().equals(id)) {
                 LootPool.Builder any = LootPool.builder()
                         .with(ItemEntry.builder(Flower.DANDELION.getSeeds()))
                         .with(ItemEntry.builder(Flower.POPPY.getSeeds()))
@@ -85,11 +81,10 @@ public class LootTablesRegistry {
                 tableBuilder.pool(meadow);
             }
 
-            if (source.isBuiltin() && WITHER_SKELETON_LOOT_TABLE_ID.equals(id)) {
-                LootPool.Builder wither_rose_seeds = LootPool.builder()
+            if (source.isBuiltin() && EntityType.WITHER_SKELETON.getLootTableId().equals(id)) {
+                tableBuilder.pool(LootPool.builder()
                         .with(ItemEntry.builder(Flower.WITHER_ROSE.getSeeds()))
-                        .conditionally(RandomChanceWithLootingLootCondition.builder(0.5f, 0.05f));
-                tableBuilder.pool(wither_rose_seeds);
+                        .conditionally(RandomChanceWithLootingLootCondition.builder(0.125f, 0.05f)));
             }
         });
     }

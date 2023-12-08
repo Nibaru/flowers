@@ -38,18 +38,18 @@ public class ModRegistry {
     }
 
     public static void registerSeedling(Flower flower){
-        Registry.register(Registries.BLOCK, Flowers.MOD_ID + ":" + flower.toString() + "_seedling",
-                SEEDLINGS.put(flower, new SeedlingBlock(FabricBlockSettings.copy(flower.getParent()).noCollision().ticksRandomly().breakInstantly())));
+        SEEDLINGS.put(flower, Registry.register(Registries.BLOCK, Flowers.MOD_ID + ":" + flower.toString() + "_seedling",
+                 new SeedlingBlock(FabricBlockSettings.copy(flower.getParent()).noCollision().ticksRandomly().breakInstantly())));
     }
 
     public static void registerCropBlock(Flower flower){
-        Registry.register(Registries.BLOCK, Flowers.MOD_ID + ":" + flower,
-                CROPS.put(flower, new FlowerCropBlock(flower.toString(), FabricBlockSettings.create().noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP))));
+        CROPS.put(flower, Registry.register(Registries.BLOCK, Flowers.MOD_ID + ":" + flower,
+                new FlowerCropBlock(flower.toString(), FabricBlockSettings.create().noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP))));
     }
 
     public static void registerItem(Flower flower){
-        Item item = Registry.register(Registries.ITEM, Flowers.MOD_ID + ":" + flower.toString() + "_seeds",
-                SEEDS.put(flower, new AliasedBlockItem(flower.getCrop(), new FabricItemSettings())));
+        Item item = new AliasedBlockItem(flower.getCrop(), new FabricItemSettings());
+                SEEDS.put(flower,Registry.register(Registries.ITEM, Flowers.MOD_ID + ":" + flower + "_seeds", item));
 
         CompostingChanceRegistry.INSTANCE.add(item, 1.5f);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(content -> content.add(item));

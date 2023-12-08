@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Flowers and Mooblooms 1.2.0]
 ### Changed
+- reduced the drop rate of wither rose seeds from wither skeletons by 50%.
 - Various bug fixes and improvements and code cleanup.
 
 ### Fixed
