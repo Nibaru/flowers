@@ -50,7 +50,7 @@ public class MoobloomFlowerFeatureRenderer<T extends MoobloomEntity> extends Fea
                 this.renderFlower(matrixStack, vertexConsumerProvider, i, bl, blockState, m, bakedModel);
                 matrixStack.pop();
                 matrixStack.push();
-                ((MoobloomEntityModel)this.getContextModel()).getHead().rotate(matrixStack);
+                this.getContextModel().getHead().rotate(matrixStack);
                 matrixStack.translate(0.0, -0.699999988079071, -0.20000000298023224);
                 matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-78.0F));
                 matrixStack.scale(-1.0F, -1.0F, 1.0F);
@@ -61,6 +61,7 @@ public class MoobloomFlowerFeatureRenderer<T extends MoobloomEntity> extends Fea
         }
     }
 
+    @SuppressWarnings("deprecation")
     private void renderFlower(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, boolean renderAsModel, BlockState mushroomState, int overlay, BakedModel mushroomModel) {
         if (renderAsModel) {
             this.blockRenderManager.getModelRenderer().render(matrices.peek(), vertexConsumers.getBuffer(RenderLayer.getOutline(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE)), mushroomState, mushroomModel, 0.0F, 0.0F, 0.0F, light, overlay);

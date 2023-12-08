@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 - Various bug fixes and improvements and code cleanup.
 
 ### Fixed
-- Fixed an issue where a moobloom would become the wrong type of variant when changed with seeds.
+- Fixed an issue where a moobloom would become the wrong variant when changed with seeds.
 
 
 ## [Flowers and Mooblooms 1.1.1]
