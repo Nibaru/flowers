@@ -44,7 +44,7 @@ public class ModRegistry {
 
     public static void registerCropBlock(Flower flower){
         CROPS.put(flower, Registry.register(Registries.BLOCK, Flowers.MOD_ID + ":" + flower,
-                new FlowerCropBlock(flower.toString(), FabricBlockSettings.create().noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP))));
+                new FlowerCropBlock(flower.toString(), FabricBlockSettings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP))));
     }
 
     public static void registerItem(Flower flower){

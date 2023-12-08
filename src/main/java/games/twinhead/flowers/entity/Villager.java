@@ -40,8 +40,7 @@ public class Villager {
     public static final Set<Item> tierTwoSeeds = new HashSet<>(List.of(new Item[]{
             Flower.BLUE_ORCHID.getSeeds(),
             Flower.ALLIUM.getSeeds(),
-            Flower.LILY_OF_THE_VALLEY.getSeeds(),
-            Items.TORCHFLOWER_SEEDS
+            Flower.LILY_OF_THE_VALLEY.getSeeds()
     }));
 
 
@@ -61,8 +60,7 @@ public class Villager {
     public static final Set<Item> tierTwoFlowers = new HashSet<>(List.of(new Item[]{
             Items.BLUE_ORCHID,
             Items.ALLIUM,
-            Items.LILY_OF_THE_VALLEY,
-            Items.TORCHFLOWER
+            Items.LILY_OF_THE_VALLEY
     }));
 
     public static final Set<Item> tallFlowers = new HashSet<>(List.of(new Item[]{
@@ -128,7 +126,6 @@ public class Villager {
         states.addAll(ImmutableSet.copyOf(Blocks.POTTED_CACTUS.getStateManager().getStates()));
         states.addAll(ImmutableSet.copyOf(Blocks.POTTED_FERN.getStateManager().getStates()));
         states.addAll(ImmutableSet.copyOf(Blocks.POTTED_DEAD_BUSH.getStateManager().getStates()));
-        states.addAll(ImmutableSet.copyOf(Blocks.POTTED_TORCHFLOWER.getStateManager().getStates()));
         return states;
     }
 
