@@ -1,6 +1,6 @@
-package games.twinhead.flowers;
+package games.twinhead.flowers.block;
 
-import net.minecraft.block.AbstractBlock;
+import games.twinhead.flowers.registry.ModRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
@@ -22,7 +22,7 @@ public enum Flower {
     ;
 
 
-    public AbstractBlock parent;
+    private final Block parent;
 
     Flower(Block parent){
         this.parent = parent;
@@ -33,14 +33,18 @@ public enum Flower {
     }
 
     public Block getCrop() {
-        return BlockRegistry.CROPS.get(this);
+        return ModRegistry.CROPS.get(this);
     }
 
     public Block getSeedling(){
-        return BlockRegistry.SEEDLINGS.get(this);
+        return ModRegistry.SEEDLINGS.get(this);
     }
 
     public Item getSeeds(){
-        return BlockRegistry.SEEDS.get(this);
+        return ModRegistry.SEEDS.get(this);
+    }
+
+    public Block getParent(){
+        return this.parent;
     }
 }

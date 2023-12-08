@@ -1,5 +1,6 @@
 package games.twinhead.flowers.entity;
 
+import games.twinhead.flowers.Flowers;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -16,16 +17,11 @@ public class EntityRegistry {
 
     public static final EntityType<MoobloomEntity> MOOBLOOM = Registry.register(
             Registries.ENTITY_TYPE,
-            new Identifier("flowers", "moobloom"),
+            new Identifier(Flowers.MOD_ID, "moobloom"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoobloomEntity::new).dimensions(EntityDimensions.changing(0.9f, 1.5f)).build());
-
-
-
-
 
     public static void register(){
         FabricDefaultAttributeRegistry.register(MOOBLOOM, MoobloomEntity.createCowAttributes());
-
         addEntitySpawn();
     }
 

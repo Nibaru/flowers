@@ -1,7 +1,7 @@
 package games.twinhead.flowers.entity;
 
 import com.google.common.collect.ImmutableSet;
-import games.twinhead.flowers.Flower;
+import games.twinhead.flowers.block.Flower;
 import games.twinhead.flowers.Flowers;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.object.builder.v1.villager.VillagerProfessionBuilder;
@@ -87,18 +87,18 @@ public class Villager {
 
 
 
-    public static final PointOfInterestType FLORIST_POI = registerPOI("florist_poi");
-    public static final VillagerProfession FLORIST = registerProfession("florist", RegistryKey.of(Registries.POINT_OF_INTEREST_TYPE.getKey(), new Identifier(Flowers.modID, "florist_poi")));
+    public static PointOfInterestType FLORIST_POI;
+    public static final VillagerProfession FLORIST = registerProfession("florist", RegistryKey.of(Registries.POINT_OF_INTEREST_TYPE.getKey(), new Identifier(Flowers.MOD_ID, "florist_poi")));
 
     @SuppressWarnings("deprecation")
     public static VillagerProfession registerProfession(String name, RegistryKey<PointOfInterestType> type) {
-        return Registry.register(Registries.VILLAGER_PROFESSION, new Identifier(Flowers.modID, name),
-                VillagerProfessionBuilder.create().id(new Identifier(Flowers.modID, name)).workstation(type)
+        return Registry.register(Registries.VILLAGER_PROFESSION, new Identifier(Flowers.MOD_ID, name),
+                VillagerProfessionBuilder.create().id(new Identifier(Flowers.MOD_ID, name)).workstation(type)
                         .workSound(SoundEvents.ENTITY_VILLAGER_WORK_ARMORER).build());
     }
 
     public static PointOfInterestType registerPOI(String name) {
-        return PointOfInterestHelper.register(new Identifier(Flowers.modID, name),
+        return PointOfInterestHelper.register(new Identifier(Flowers.MOD_ID, name),
                 1, 1, getAllFlowerPotStates());
     }
 
@@ -133,8 +133,7 @@ public class Villager {
     }
 
     public static void register() {
-        Flowers.LOGGER.debug("Registering Villagers for " + Flowers.modID);
-        FLORIST_POI.toString();
+        FLORIST_POI = registerPOI("florist_poi");
     }
 
     public static void registerTrades() {

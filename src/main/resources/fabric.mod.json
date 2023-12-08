@@ -1,12 +1,14 @@
 {
   "schemaVersion": 1,
-  "id": "flowers",
+  "id": "${mod_id}",
   "version": "${version}",
-  "name": "Flowers & Mooblooms",
+  "name": "${mod_name}",
   "description": "Plant your way to happiness, surrounded by growable flowers and friendly MooBlooms.",
   "authors": ["Nibaru"],
   "contact": {
-    "sources": "https://github.com/Nibaru/flowers"
+    "homepage": "https://modrinth.com/mod/flowers-and-mooblooms",
+    "sources": "https://github.com/Nibaru/flowers",
+    "issues": "https://github.com/Nibaru/flowers/issues"
   },
   "license": "LGPL-3",
   "icon": "assets/flowers/icon.png",
@@ -23,8 +25,8 @@
     "flowers.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.21",
+    "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": ">=1.20"
+    "minecraft": "${minecraft_version}"
   }
 }
