@@ -12,6 +12,7 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -52,7 +53,6 @@ public class ChickenEntityMixin extends AnimalEntity {
                 Items.MELON_SEEDS,
                 Items.PUMPKIN_SEEDS,
                 Items.BEETROOT_SEEDS,
-                Items.TORCHFLOWER_SEEDS,
                 Flower.ALLIUM.getSeeds(),
                 Flower.AZURE_BLUET.getSeeds(),
                 Flower.BLUE_ORCHID.getSeeds(),

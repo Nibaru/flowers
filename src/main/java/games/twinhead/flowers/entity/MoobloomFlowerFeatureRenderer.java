@@ -13,7 +13,8 @@ import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.RotationAxis;
+import net.minecraft.data.client.VariantSettings;
+import net.minecraft.util.BlockRotation;
 
 @Environment(EnvType.CLIENT)
 public class MoobloomFlowerFeatureRenderer<T extends MoobloomEntity> extends FeatureRenderer<T, MoobloomEntityModel<T>> {
@@ -35,16 +36,17 @@ public class MoobloomFlowerFeatureRenderer<T extends MoobloomEntity> extends Fea
                 BakedModel bakedModel = this.blockRenderManager.getModel(blockState);
                 matrixStack.push();
                 matrixStack.translate(0.20000000298023224, -0.3499999940395355, 0.5);
-                matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-48.0F));
+
+                //matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees());
                 matrixStack.scale(-1.0F, -1.0F, 1.0F);
                 matrixStack.translate(-0.5, -0.5, -0.5);
                 this.renderFlower(matrixStack, vertexConsumerProvider, i, bl, blockState, m, bakedModel);
                 matrixStack.pop();
                 matrixStack.push();
                 matrixStack.translate(0.20000000298023224, -0.3499999940395355, 0.5);
-                matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(42.0F));
+                //matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(42.0F));
                 matrixStack.translate(0.10000000149011612, 0.0, -0.6000000238418579);
-                matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-48.0F));
+                //matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-48.0F));
                 matrixStack.scale(-1.0F, -1.0F, 1.0F);
                 matrixStack.translate(-0.5, -0.5, -0.5);
                 this.renderFlower(matrixStack, vertexConsumerProvider, i, bl, blockState, m, bakedModel);
@@ -52,7 +54,7 @@ public class MoobloomFlowerFeatureRenderer<T extends MoobloomEntity> extends Fea
                 matrixStack.push();
                 this.getContextModel().getHead().rotate(matrixStack);
                 matrixStack.translate(0.0, -0.699999988079071, -0.20000000298023224);
-                matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-78.0F));
+                //matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-78.0F));
                 matrixStack.scale(-1.0F, -1.0F, 1.0F);
                 matrixStack.translate(-0.5, -0.5, -0.5);
                 this.renderFlower(matrixStack, vertexConsumerProvider, i, bl, blockState, m, bakedModel);
