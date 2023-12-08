@@ -16,7 +16,7 @@ public class LootTablesRegistry {
 
     public static void register(){
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-            if (source.isBuiltin() && Blocks.SHORT_GRASS.getLootTableId().equals(id)) {
+            if (source.isBuiltin() && Blocks.GRASS.getLootTableId().equals(id)) {
                 LootPool.Builder any = LootPool.builder()
                         .with(ItemEntry.builder(Flower.DANDELION.getSeeds()))
                         .with(ItemEntry.builder(Flower.POPPY.getSeeds()))

@@ -118,7 +118,6 @@ public class MoobloomEntity extends CowEntity implements Shearable {
     }
 
     public BlockState getFlowerState(){
-        System.out.println(Flower.values()[getFlowerType()].getSeedling().getDefaultState().with(Properties.AGE_4, getFlowerAge()));
         return Flower.values()[getFlowerType()].getSeedling().getDefaultState().with(Properties.AGE_4, getFlowerAge());
     }
 
