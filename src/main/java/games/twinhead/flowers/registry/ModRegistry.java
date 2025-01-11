@@ -44,7 +44,7 @@ public class ModRegistry {
     }
 
     public static void registerItem(Flower flower){
-        Item item = new AliasedBlockItem(flower.getCrop(), new FabricItemSettings());
+        Item item = new AliasedBlockItem(flower.getCrop(), new FabricItemSettings().group(ItemGroup.MISC));
                 SEEDS.put(flower,Registry.register(Registry.ITEM, Flowers.MOD_ID + ":" + flower + "_seeds", item));
 
         CompostingChanceRegistry.INSTANCE.add(item, 1.5f);
